@@ -8,7 +8,7 @@ start() ->
 listen(Env) ->
 	Newenv = receive 
 		{create, Name, Replyto} -> 
-			Newroom = spawn_link(toy_chat_room, start, [#{parent => self(), name => Name, subscibers => []}]),
+			Newroom = spawn_link(toy_chat_room, start, [#{parent => self(), name => Name, subscribers => []}]),
 			Newroom ! { subscribe, Replyto },
 			Env#{ rooms => maps:put(Name, Newroom, maps:get(rooms, Env, #{}))};
 		{list, Replyto} ->
